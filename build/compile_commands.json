@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/power/projects/Chat-Server/build",
+  "command": "/usr/bin/clang -I/home/power/projects/unpv13e/lib -g -o CMakeFiles/daytimetcpcli.dir/daytimetcpcli.c.o -c /home/power/projects/Chat-Server/daytimetcpcli.c",
+  "file": "/home/power/projects/Chat-Server/daytimetcpcli.c",
+  "output": "CMakeFiles/daytimetcpcli.dir/daytimetcpcli.c.o"
+}
+]
