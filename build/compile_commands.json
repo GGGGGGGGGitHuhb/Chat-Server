@@ -1,8 +1,14 @@
 [
 {
   "directory": "/home/power/projects/Chat-Server/build",
-  "command": "/usr/bin/clang -I/home/power/projects/unpv13e/lib -g -o CMakeFiles/daytimetcpcli.dir/daytimetcpcli.c.o -c /home/power/projects/Chat-Server/daytimetcpcli.c",
-  "file": "/home/power/projects/Chat-Server/daytimetcpcli.c",
-  "output": "CMakeFiles/daytimetcpcli.dir/daytimetcpcli.c.o"
+  "command": "/usr/bin/clang -I/home/power/projects/unpv13e/lib -g -o CMakeFiles/server.dir/src/echo_server.c.o -c /home/power/projects/Chat-Server/src/echo_server.c",
+  "file": "/home/power/projects/Chat-Server/src/echo_server.c",
+  "output": "CMakeFiles/server.dir/src/echo_server.c.o"
+},
+{
+  "directory": "/home/power/projects/Chat-Server/build",
+  "command": "/usr/bin/clang -I/home/power/projects/unpv13e/lib -g -o CMakeFiles/client.dir/src/echo_client.c.o -c /home/power/projects/Chat-Server/src/echo_client.c",
+  "file": "/home/power/projects/Chat-Server/src/echo_client.c",
+  "output": "CMakeFiles/client.dir/src/echo_client.c.o"
 }
 ]

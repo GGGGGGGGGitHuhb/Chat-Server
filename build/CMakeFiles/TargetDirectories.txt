@@ -1,3 +1,4 @@
-/home/power/projects/Chat-Server/build/CMakeFiles/daytimetcpcli.dir
+/home/power/projects/Chat-Server/build/CMakeFiles/server.dir
+/home/power/projects/Chat-Server/build/CMakeFiles/client.dir
 /home/power/projects/Chat-Server/build/CMakeFiles/edit_cache.dir
 /home/power/projects/Chat-Server/build/CMakeFiles/rebuild_cache.dir

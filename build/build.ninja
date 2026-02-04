@@ -41,37 +41,70 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = /home/power/projects/Chat-Server/build/
 # =============================================================================
-# Object build statements for EXECUTABLE target daytimetcpcli
+# Object build statements for EXECUTABLE target server
 
 
 #############################################
-# Order-only phony target for daytimetcpcli
+# Order-only phony target for server
 
-build cmake_object_order_depends_target_daytimetcpcli: phony || CMakeFiles/daytimetcpcli.dir
+build cmake_object_order_depends_target_server: phony || CMakeFiles/server.dir
 
-build CMakeFiles/daytimetcpcli.dir/daytimetcpcli.c.o: C_COMPILER__daytimetcpcli_unscanned_Debug /home/power/projects/Chat-Server/daytimetcpcli.c || cmake_object_order_depends_target_daytimetcpcli
-  DEP_FILE = CMakeFiles/daytimetcpcli.dir/daytimetcpcli.c.o.d
+build CMakeFiles/server.dir/src/echo_server.c.o: C_COMPILER__server_unscanned_Debug /home/power/projects/Chat-Server/src/echo_server.c || cmake_object_order_depends_target_server
+  DEP_FILE = CMakeFiles/server.dir/src/echo_server.c.o.d
   FLAGS = -g
   INCLUDES = -I/home/power/projects/unpv13e/lib
-  OBJECT_DIR = CMakeFiles/daytimetcpcli.dir
-  OBJECT_FILE_DIR = CMakeFiles/daytimetcpcli.dir
+  OBJECT_DIR = CMakeFiles/server.dir
+  OBJECT_FILE_DIR = CMakeFiles/server.dir/src
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target daytimetcpcli
+# Link build statements for EXECUTABLE target server
 
 
 #############################################
-# Link the executable daytimetcpcli
+# Link the executable server
 
-build daytimetcpcli: C_EXECUTABLE_LINKER__daytimetcpcli_Debug CMakeFiles/daytimetcpcli.dir/daytimetcpcli.c.o | /home/power/projects/unpv13e/libunp.a
+build server: C_EXECUTABLE_LINKER__server_Debug CMakeFiles/server.dir/src/echo_server.c.o | /home/power/projects/unpv13e/libunp.a
   FLAGS = -g
   LINK_LIBRARIES = /home/power/projects/unpv13e/libunp.a
-  OBJECT_DIR = CMakeFiles/daytimetcpcli.dir
+  OBJECT_DIR = CMakeFiles/server.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = daytimetcpcli
-  TARGET_PDB = daytimetcpcli.dbg
+  TARGET_FILE = server
+  TARGET_PDB = server.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target client
+
+
+#############################################
+# Order-only phony target for client
+
+build cmake_object_order_depends_target_client: phony || CMakeFiles/client.dir
+
+build CMakeFiles/client.dir/src/echo_client.c.o: C_COMPILER__client_unscanned_Debug /home/power/projects/Chat-Server/src/echo_client.c || cmake_object_order_depends_target_client
+  DEP_FILE = CMakeFiles/client.dir/src/echo_client.c.o.d
+  FLAGS = -g
+  INCLUDES = -I/home/power/projects/unpv13e/lib
+  OBJECT_DIR = CMakeFiles/client.dir
+  OBJECT_FILE_DIR = CMakeFiles/client.dir/src
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target client
+
+
+#############################################
+# Link the executable client
+
+build client: C_EXECUTABLE_LINKER__client_Debug CMakeFiles/client.dir/src/echo_client.c.o | /home/power/projects/unpv13e/libunp.a
+  FLAGS = -g
+  LINK_LIBRARIES = /home/power/projects/unpv13e/libunp.a
+  OBJECT_DIR = CMakeFiles/client.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = client
+  TARGET_PDB = client.dbg
 
 
 #############################################
@@ -107,7 +140,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /home/power/projects/Chat-Server/build
 
-build all: phony daytimetcpcli
+build all: phony server client
 
 # =============================================================================
 # Built-in targets
