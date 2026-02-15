@@ -1,40 +1,118 @@
 #include "unp.h"
-#include <stdio.h>
-#include <string.h>
 #include <strings.h>
+#include <sys/select.h>
 #include <sys/socket.h>
-#include <time.h>
 #include <unistd.h>
 
 int main(int argc, char **argv)
 {
-    int listenfd, connfd, n;
-    char buff[MAXLINE];
-    char recvline[MAXLINE + 1];
+    int i;
+    int listenfd;
+    int connfd;
+    int sockfd;
+    int maxfd;
+    int maxi;
+    int nready;
+    ssize_t n;
+    int client[FD_SETSIZE];
+    fd_set allset;
+    fd_set rset;
+    char buf[MAXLINE];
     struct sockaddr_in servaddr;
 
-    listenfd = socket(AF_INET, SOCK_STREAM, 0);
-    
+    (void) argc;
+    (void) argv;
+
+    listenfd = Socket(AF_INET, SOCK_STREAM, 0);
+
     bzero(&servaddr, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
     servaddr.sin_port = htons(7);
-    
-    bind(listenfd, (SA *) &servaddr, sizeof(servaddr));
 
-    listen(listenfd, LISTENQ);
+    Bind(listenfd, (SA *) &servaddr, sizeof(servaddr));
+    Listen(listenfd, LISTENQ);
 
-    for ( ; ; )
+    maxfd = listenfd;
+    maxi = -1;
+    for (i = 0; i < FD_SETSIZE; ++i)
     {
-        connfd = accept(listenfd, (SA *) NULL, NULL);
-        while ((n = read(connfd, recvline, MAXLINE)) > 0)
+        client[i] = -1;
+    }
+
+    FD_ZERO(&allset);
+    FD_SET(listenfd, &allset);
+
+    for (;;)
+    {
+        rset = allset;
+        nready = Select(maxfd + 1, &rset, NULL, NULL, NULL);
+
+        if (FD_ISSET(listenfd, &rset))
         {
-            recvline[n] = 0;
-            fputs(recvline, stdout);
-            strcpy(buff, recvline);
-            write(connfd, buff, strlen(buff));
+            connfd = Accept(listenfd, (SA *) NULL, NULL);
+
+            for (i = 0; i < FD_SETSIZE; ++i)
+            {
+                if (client[i] < 0)
+                {
+                    client[i] = connfd;
+                    break;
+                }
+            }
+
+            if (i == FD_SETSIZE)
+            {
+                Close(connfd);
+                err_quit("too many clients");
+            }
+
+            FD_SET(connfd, &allset);
+            if (connfd > maxfd)
+            {
+                maxfd = connfd;
+            }
+            if (i > maxi)
+            {
+                maxi = i;
+            }
+
+            if (--nready <= 0)
+            {
+                continue;
+            }
         }
 
-        close(connfd);
+        for (i = 0; i <= maxi; ++i)
+        {
+            if ((sockfd = client[i]) < 0)
+            {
+                continue;
+            }
+
+            if (FD_ISSET(sockfd, &rset))
+            {
+                n = read(sockfd, buf, MAXLINE);
+                if (n < 0)
+                {
+                    err_sys("read error");
+                }
+                else if (n == 0)
+                {
+                    Close(sockfd);
+                    FD_CLR(sockfd, &allset);
+                    client[i] = -1;
+                }
+                else
+                {
+                    Writen(sockfd, buf, (size_t) n);
+                }
+
+                if (--nready <= 0)
+                {
+                    break;
+                }
+            }
+        }
     }
 }
